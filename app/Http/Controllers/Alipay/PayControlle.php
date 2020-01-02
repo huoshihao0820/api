@@ -13,6 +13,7 @@ class PayControlle extends Controller
      */
     public function notify()
     {
+        dd("支付宝通知");
         // 1 接收 支付宝的POST数据
         //$data1 = file_get_contents("php://input");
         $data2 = json_encode($_POST);
@@ -40,6 +41,7 @@ class PayControlle extends Controller
         $str = rtrim($str,'&');
         //读取公钥文件
         $pubKey = file_get_contents(storage_path('keys/ali_pub'));
+//        dd($pubKey);
         //转换为openssl格式密钥
         $res = openssl_get_publickey($pubKey);
         // 验证签名
@@ -63,6 +65,7 @@ class PayControlle extends Controller
         echo '<pre>';print_r($_GET);echo '</pre>';
     }
     protected function verify($data, $sign) {
+        dd("支付宝同步通知");
         //读取公钥文件
         $pubKey = file_get_contents(storage_path('keys/ali_pub'));
         //转换为openssl格式密钥

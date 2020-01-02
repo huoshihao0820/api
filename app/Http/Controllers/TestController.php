@@ -62,7 +62,9 @@ class TestController extends Controller
         $priKey = file_get_contents($key);
         $res = openssl_get_privatekey($priKey);
         //var_dump($res);echo '</br>';
+//        dd(1);
         openssl_sign($str, $sign, $res, OPENSSL_ALGO_SHA256);       //计算签名
+//        dd(2);
         $sign = base64_encode($sign);
         $param['sign'] = $sign;
         // 4 urlencode
@@ -72,8 +74,9 @@ class TestController extends Controller
         }
         $param_str = rtrim($param_str,'&');
         $url = $ali_gateway . $param_str;
+//        dd(23);
         //发送GET请求
-        //echo $url;die;
+//        echo $url;die;
         header("Location:".$url);
     }
 }
