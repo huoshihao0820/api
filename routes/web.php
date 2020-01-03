@@ -18,3 +18,4 @@ Route::get('/test/pay','TestController@alipay');        //去支付
 Route::get('/test/alipay/return','Alipay\PayController@aliReturn');
 Route::post('/test/alipay/notify','Alipay\PayController@notify');
 Route::post('/test/register','TestController@register');
+Route::post('/test/login','TestController@login');
