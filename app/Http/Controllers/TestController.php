@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TestController extends Controller
 {
@@ -102,11 +103,26 @@ class TestController extends Controller
         if ($res){
             if (password_verify($password,$res['password'])){
                 echo "密码dui";
+                $token=Str::random(32);
+                $respon=[
+                    'error'=>0,
+                    'msg'=>'登陆成功',
+                    'data'=>[
+                        'token'=>$token
+                    ]
+                ];
             }else{
-                echo "密码错误";
+                $respon=[
+                    'error'=>20001,
+                    'msg'=>'密码错误',
+                ];
             }
         }else{
-            echo "用户名错误";
+            $respon=[
+                'error'=>20002,
+                'msg'=>'用户名错误',
+            ];
         }
+        return $respon;
     }
 }
