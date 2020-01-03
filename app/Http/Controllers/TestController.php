@@ -81,7 +81,7 @@ class TestController extends Controller
         header("Location:".$url);
     }
 
-    public function user(Request $request){
+    public function register(Request $request){
         $data=\request()->all();
 //        var_dump($data);
         $password=$request->password;
@@ -94,5 +94,19 @@ class TestController extends Controller
 
         $id=UserModel::insertGetId($data);
         var_dump($id);
+    }
+    public function login(Request $request){
+        $name=$request->name;
+        $password=$request->password;
+        $res=UserModel::where('name',$name)->first();
+        if ($res){
+            if (password_verify($password,$res['password'])){
+                echo "密码dui";
+            }else{
+                echo "密码错误";
+            }
+        }else{
+            echo "用户名错误";
+        }
     }
 }
