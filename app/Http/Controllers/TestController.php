@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\models\UserModel;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -78,5 +79,20 @@ class TestController extends Controller
         //发送GET请求
 //        echo $url;die;
         header("Location:".$url);
+    }
+
+    public function user(Request $request){
+        $data=\request()->all();
+//        var_dump($data);
+        $password=$request->password;
+        $password1=$request->password1;
+        if ($password !=$password1){
+            die("密码不一致");
+        }
+        unset($data['password1']);
+        $data['password']=password_hash($password,PASSWORD_BCRYPT);
+
+        $id=UserModel::insertGetId($data);
+        var_dump($id);
     }
 }
