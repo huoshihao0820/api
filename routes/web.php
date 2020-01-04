@@ -19,4 +19,4 @@ Route::get('/test/alipay/return','Alipay\PayController@aliReturn');
 Route::post('/test/alipay/notify','Alipay\PayController@notify');
 Route::post('/test/register','TestController@register');
 Route::post('/test/login','TestController@login');
-Route::get('/test/list','TestController@list')->middleware('fileter');
+Route::get('/test/list','TestController@userList')->middleware('fileter');
