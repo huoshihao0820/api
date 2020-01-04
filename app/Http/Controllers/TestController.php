@@ -125,4 +125,8 @@ class TestController extends Controller
         }
         return $respon;
     }
+    public function userList(){
+        $list=UserModel::all();
+        print_r($list->toArray());
+    }
 }
