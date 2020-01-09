@@ -20,3 +20,12 @@ Route::post('/test/alipay/notify','Alipay\PayController@notify');
 Route::post('/test/register','TestController@register');
 Route::post('/test/login','TestController@login');
 Route::get('/test/list','TestController@userList')->middleware('fileter');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/test/pubkey','HomeController@pubkey');
+Route::any('/test/encrypt','HomeController@encrypt');
+Route::post('/test/pubkey_do','HomeController@pubkey_do');
+Route::post('/test/encrypt_do','HomeController@encrypt_do');
+
+
