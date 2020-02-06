@@ -99,6 +99,7 @@ class TestController extends Controller
     public function login(Request $request){
         $name=$request->name;
         $password=$request->password;
+//        dd($password);
         $res=UserModel::where('name',$name)->first();
         if ($res){
             if (password_verify($password,$res['password'])){
