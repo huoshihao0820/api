@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+//use App\Models\CommonModel;
+use GuzzleHttp\Client;
 
 class TestController extends Controller
 {
@@ -130,4 +132,66 @@ class TestController extends Controller
         $list=UserModel::all();
         print_r($list->toArray());
     }
+    public function showData()
+    {
+
+        // 收到 token
+        $uid = $_SERVER['HTTP_UID'];
+        $token = $_SERVER['HTTP_TOKEN'];
+
+        // 请求passport鉴权
+        $url = 'http://passport.com/test/showTime';         //鉴权接口
+        $response = CommonModel::curl2($url,['uid'=>$uid,'token'=>$token]);
+
+        $status = json_decode($response,true);
+
+        //处理鉴权结果
+        if($status['errno']==0)     //鉴权通过
+        {
+            $data = "sdlfkjsldfkjsdlf";
+            $response = [
+                'errno' => 0,
+                'msg'   => 'ok',
+                'data'  => $data
+            ];
+        }else{          //鉴权失败
+            $response = [
+                'errno' => 40003,
+                'msg'   => '授权失败'
+            ];
+        }
+
+        return $response;
+
+    }
+
+    public function sign2()
+    {
+        $key = "1905a";
+        //签名数据
+        $order_info = [
+            "order_id"          => 'LN_' . mt_rand(100000,999999),
+            "order_amount"      => mt_rand(100,999),
+            "uid"               => 12345,
+            "add_time"          => time(),
+        ];
+        $data_json = json_encode($order_info);
+        //md5加密
+        $sign = md5($data_json.$key);
+        // post发送数据
+        $client = new Client();
+        $url = 'http://passport.com/test/check2';
+        $response = $client->request("POST",$url,[
+            "form_params"   => [
+                "data"  => $data_json,
+                "sign"  => $sign
+            ]
+        ]);
+
+        //接收服务器端响应的数据
+        $response_data = $response->getBody();
+        echo $response_data;
+
+    }
+
 }

@@ -20,6 +20,10 @@ Route::post('/test/alipay/notify','Alipay\PayController@notify');
 Route::post('/test/register','TestController@register');
 Route::post('/test/login','TestController@login');
 Route::get('/test/list','TestController@userList')->middleware('fileter');
+Route::post('/test/showData','TestController@showData');
+Route::get('/test/sign2','TestController@sign2');
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
