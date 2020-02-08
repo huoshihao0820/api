@@ -22,7 +22,7 @@ Route::post('/test/login','TestController@login');
 Route::get('/test/list','TestController@userList')->middleware('fileter');
 Route::post('/test/showData','TestController@showData');
 Route::get('/test/sign2','TestController@sign2');
-
+Route::get('/test/crypt','TestController@crypt');
 
 Auth::routes();
 

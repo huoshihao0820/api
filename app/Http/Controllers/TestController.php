@@ -193,5 +193,23 @@ class TestController extends Controller
         echo $response_data;
 
     }
+    public function crypt(){
+	           $data=$_GET;
+		          $data=json_encode($data);
+	          echo "明文".$data;
+		         echo "<br>";
+	         $method="AES-128-CBC";
+	        $key='1905abc';
+	        $iv='abcdefghijkrmnop';
+		       $ponse=openssl_encrypt($data,$method,$key,OPENSSL_RAW_DATA,$iv);
+		       $ponse=urlencode(base64_encode($ponse));
+		         echo "加密";
+	                     echo "base64_encode".$ponse;
+	                            echo "<hr>";
+                                  $url="http://passport.com/test/encrypt?data=".$ponse;
+                                //       echo $url;die();
+                                 $ponse2=file_get_contents($url);
+                                 echo $ponse2;
+    }
 
 }
